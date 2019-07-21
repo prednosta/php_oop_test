@@ -19,21 +19,20 @@ class DB {
 
 		//nastaveni charset
 		if (!$this->conn->set_charset("UTF8")) {
-			die("<span class='error'><br />utf8 nenacten: </span>" . $this->conn->error);
+			die("<br />utf8 nenacten: " . $this->conn->error);
 		} else {
 			$this->conn->character_set_name();
 		}
 	}
 
 	//vyber dat
-	public function vyber($zCeho){
-		$dotaz = "SELECT * FROM $zCeho";
+	public function vyber($zCeho, $ordBy="id", $ascdesc="ASC"){
+		$dotaz = "SELECT * FROM $zCeho ORDER BY $ordBy $ascdesc";
 		$data = $this->conn->query($dotaz);
 
 		if ( $data->num_rows > 0 ) {
-			//echo "<table>";
-			echo "<tr>";
 
+			echo "<tr>";
 			$i = 0;
 			while ( $radek = $data->fetch_assoc()) {
 				//echo var_dump($radek);
@@ -53,7 +52,7 @@ class DB {
 			}
 			echo "</table>";
 		} else {
-			echo "<span class='error'>nic tu není </span>" . $this->conn->error;
+			echo "<span class='error'>nic tu neni</span>" . $this->conn->error;
 		}
 	}
 
