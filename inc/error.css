@@ -1,0 +1,13 @@
+.err-cont {
+	height: 10vw;
+	width: 26vw;
+	margin: 0 auto;
+	padding: 10px;
+	top: 3vw;
+	position: relative;
+}
+
+.error {
+	color: red;
+	font-size: 2vw;
+}
