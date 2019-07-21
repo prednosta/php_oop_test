@@ -5,7 +5,7 @@ class DB {
 	private $conn;
 
 	public function __construct(){
-		echo "<br />Databázové funkce<br />";
+		//echo "<br />Databázové funkce<br />";
 	}
 
 	//pripojeni databaze
@@ -19,7 +19,7 @@ class DB {
 
 		//nastaveni charset
 		if (!$this->conn->set_charset("UTF8")) {
-			die("<br />utf8 nenacten: " . $this->conn->error);
+			die("<span class='error'><br />utf8 nenacten: </span>" . $this->conn->error);
 		} else {
 			$this->conn->character_set_name();
 		}
@@ -31,13 +31,29 @@ class DB {
 		$data = $this->conn->query($dotaz);
 
 		if ( $data->num_rows > 0 ) {
+			//echo "<table>";
+			echo "<tr>";
+
+			$i = 0;
 			while ( $radek = $data->fetch_assoc()) {
-				foreach ( $radek as $hodnota ) {
-					echo $hodnota . "<br />";
+				//echo var_dump($radek);
+				$i = $i + 1;
+				if ( $i % 2 ) {
+					echo "<tr>";
+				} else {
+					echo "<tr class='sudy'>";
 				}
+				
+				foreach ( $radek as $klic => $hodnota ) {
+
+					echo "<td>" . $hodnota . "</td>";
+
+				}
+				echo "</tr>";
 			}
+			echo "</table>";
 		} else {
-			echo "Nějaká chyba " . $this->conn->error;
+			echo "<span class='error'>nic tu není </span>" . $this->conn->error;
 		}
 	}
 
